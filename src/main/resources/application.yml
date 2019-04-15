@@ -1,0 +1,29 @@
+server:
+  port: 2222
+  servlet:
+    session:
+      timeout: 1500m
+
+spring:
+  datasource:
+    driver-class-name: @jdbc.driver@
+    url: @jdbc.url@
+    username: @jdbc.username@
+    password: @jdbc.password@
+  resources:
+    static-locations: file:@upload.image.path@
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 100MB
+
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+
+
+upload:
+  image:
+    path: @upload.image.path@

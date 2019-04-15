@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true" scanPeriod="300 seconds">
+
+    <property name="log.dir" value="@log.dir@"/>
+    <property name="encoding" value="UTF-8"/>
+    <property name="log-pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS}|[%thread]|%-5level|%logger{36} - %msg%n"/>
+
+    <appender name="service" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <encoder>
+            <pattern>${log-pattern}</pattern>
+            <charset>${encoding}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.dir}/service.%d{yy-MM-dd}.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <logger name="com.narata.daily.config.ServiceLogAspect" level="DEBUG" additivity="false">
+        <appender-ref ref="service"/>
+    </logger>
+
+    <appender name="http" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <encoder>
+            <pattern>${log-pattern}</pattern>
+            <charset>${encoding}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.dir}/http.%d{yy-MM-dd}.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <logger name="com.narata.daily.config.HttpLogAspect" level="DEBUG" additivity="false">
+        <appender-ref ref="http"/>
+    </logger>
+
+
+</configuration>
