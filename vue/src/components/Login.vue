@@ -2,7 +2,7 @@
     <div id="main">
         <div class="container">
             <div class="login-container">
-                <div class="avatar"><img src="../assets/img/login.jpg" id="picture"></div>
+                <div class="avatar"></div>
                 <div class="form-box">
                     <input v-model="username" type="text" placeholder="username">
                     <input v-model="password" type="password" placeholder="password">
