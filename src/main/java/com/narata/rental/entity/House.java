@@ -69,6 +69,11 @@ public class House {
     private Long userId;
 
     /**
+     * 0 房源信息，1 求租信息
+     */
+    private Integer rentHouse;
+
+    /**
      * 删除标志位
      */
     @TableLogic

@@ -14,7 +14,7 @@ create table if not exists user
 insert into user(username, password, role)
 values ('narata', '$2a$10$FckY1NC6Pi6STtH5KCbJ3uH5CaabdZCFNljxVweyVCxvn5TyOgyHi', 1);
 insert into user(username, password) values ('user', '$2a$10$FckY1NC6Pi6STtH5KCbJ3uH5CaabdZCFNljxVweyVCxvn5TyOgyHi');
-insert into user(username, password) VALUES ('user1', '''$2a$10$FckY1NC6Pi6STtH5KCbJ3uH5CaabdZCFNljxVweyVCxvn5TyOgyHi''');
+insert into user(username, password) VALUES ('user1', '$2a$10$FckY1NC6Pi6STtH5KCbJ3uH5CaabdZCFNljxVweyVCxvn5TyOgyHi''');
 
 drop table if exists house;
 create table if not exists house
@@ -28,6 +28,7 @@ create table if not exists house
     orientation varchar(20)  default null comment '朝向',
     status      int          default 0 comment '状态，0未租，1已租',
     image       varchar(200) default null comment '图片位置',
+    rent_house  tinyint default 0 comment '0 房源信息，1 求租信息',
     user_id     bigint not null comment '用户id',
     is_deleted  tinyint not null default 0 comment '删除标志位'
 ) engine = InnoDB
