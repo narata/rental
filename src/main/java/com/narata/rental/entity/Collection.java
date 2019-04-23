@@ -25,7 +25,7 @@ public class Collection{
     private Long userId;
 
     @TableLogic
-    private Integer idDeleted;
+    private Integer isDeleted;
 
 
 }

@@ -14,7 +14,7 @@ import java.security.Principal;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author narata
@@ -22,7 +22,7 @@ import java.security.Principal;
  */
 @RestController
 @RequestMapping("/house")
-public class HouseController{
+public class HouseController {
     private final IUserService userService;
     private final IHouseService houseService;
 
@@ -57,15 +57,33 @@ public class HouseController{
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     public ResponseEntity list(
             @RequestBody House houseSearch,
             @RequestParam("current") Integer current,
             @RequestParam("size") Integer size,
+            @RequestParam("self") Integer self,
             Principal principal
     ) {
+        IPage<House> page;
+        if (self.equals(1)) {
+            UserEntity user = userService.getUserByUsername(principal.getName());
+            page = houseService.listByUser(user, current, size);
+        } else {
+            page = houseService.list(current, size, houseSearch);
+        }
+        return new ResponseEntity<>(page, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/list/collection", method = RequestMethod.POST)
+    public ResponseEntity listCollection(
+            @RequestParam("current") Integer current,
+            @RequestParam("size") Integer size,
+            Principal principal
+    ) {
+        IPage<House> page;
         UserEntity user = userService.getUserByUsername(principal.getName());
-        IPage<House> page = houseService.list(user, current, size, houseSearch);
+        page = houseService.listByCollection(user, current, size);
         return new ResponseEntity<>(page, HttpStatus.OK);
     }
 }

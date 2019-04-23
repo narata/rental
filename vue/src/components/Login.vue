@@ -1,12 +1,15 @@
 <template>
     <div id="main">
-        <div class="container">
+        <div class="show">
             <div class="login-container">
-                <div class="avatar"></div>
+                <div class="avatar">
+                    <img src="../assets/logo.png" id="picture">
+                </div>
                 <div class="form-box">
                     <input v-model="username" type="text" placeholder="username">
                     <input v-model="password" type="password" placeholder="password">
                     <button class="btn btn-info btn-block login" type="submit" @click="check">登 录</button>
+                    <button class="btn btn-info btn-block login" type="submit" @click="register">注 册</button>
                     <p id="info" style="color: red;">{{value}}</p>
                 </div>
             </div>
@@ -37,10 +40,33 @@
                         localStorage.setItem("Flag", "isLogin");
                         localStorage.setItem("username", this.username);
                         localStorage.setItem("time", new Date().getTime().toString());
-                        this.$router.push({path: '/'});
+                        this.axios.get('/api/user/isAdmin')
+                            .then(res => {
+                                if (res.status === 200) {
+                                    localStorage.setItem("role", "1");
+                                } else {
+                                    localStorage.setItem("role", "0");
+                                }
+                            });
+                        this.$router.push({path: '/get_house'});
                     }
                 }).catch(() => {
                     this.$message.error("登录失败");
+                });
+            },
+            register() {
+                this.axios.post("/api/register", {
+                        username: this.username,
+                        password: this.password
+                    }
+                ).then((res) => {
+                    if (res.status === 201) {
+                        this.$message.success("注册成功");
+                    } else {
+                        this.$message.error("注册失败");
+                    }
+                }).catch(() => {
+                    this.$message.error("注册失败");
                 });
             }
         }
@@ -49,11 +75,6 @@
 </script>
 
 <style scoped>
-
-
-    .container {
-        text-align: center;
-    }
 
     .login-container {
         top: 100px;

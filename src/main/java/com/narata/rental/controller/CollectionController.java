@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
  * <p>
@@ -69,6 +70,29 @@ public class CollectionController {
         UserEntity user = userService.getUserByUsername(principal.getName());
         IPage<Collection> page = collectionService.list(user, current, size);
         return new ResponseEntity<>(page, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/list/houseId", method = RequestMethod.GET)
+    public ResponseEntity listHouseId(
+            Principal principal
+    ) {
+        UserEntity user = userService.getUserByUsername(principal.getName());
+        List<Long> result = collectionService.listHouseIdByUser(user);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/byHouseId", method = RequestMethod.DELETE)
+    public ResponseEntity deleteByHouseId(
+            @RequestParam("house_id") Long houseId,
+            Principal principal
+    ) {
+        UserEntity user = userService.getUserByUsername(principal.getName());
+        Collection collection = collectionService.selectByHouseAndUserId(houseId, user.getId());
+        if (collectionService.delete(collection.getId(), user)) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 }
 

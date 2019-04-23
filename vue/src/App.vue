@@ -19,4 +19,10 @@
         color: #2c3e50;
         /*margin-top: 60px;*/
     }
+    .show {
+        max-width: 1100px;
+        padding-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 </style>

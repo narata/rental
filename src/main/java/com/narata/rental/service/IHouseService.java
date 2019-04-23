@@ -39,13 +39,38 @@ public interface IHouseService extends IService<House> {
     boolean delete(Long houseId, UserEntity user);
 
     /**
+     * 通过用户id删除房源
+     * @param userEntity 登录用户
+     * @param userId 用户id
+     * @return true or false
+     */
+    boolean deleteByUserId(UserEntity userEntity, Long userId);
+
+    /**
      * 分页查找房源信息
-     * @param userEntity 用户
      * @param current 目前页数
      * @param size 每页大小
      * @param houseSearch 查询字段
      * @return {@link IPage<House>}
      */
-    IPage<House> list(UserEntity userEntity, Integer current, Integer size, House houseSearch);
+    IPage<House> list(Integer current, Integer size, House houseSearch);
+
+    /**
+     * 分页查找指定用户的房源信息
+     * @param userEntity 用户
+     * @param current 当前页
+     * @param size 每页大小
+     * @return {@link IPage<House>}
+     */
+    IPage<House> listByUser(UserEntity userEntity, Integer current, Integer size);
+
+    /**
+     * 查找用户收藏的房源信息
+     * @param userEntity 用户
+     * @param current 当前也
+     * @param size 每页大小
+     * @return {@link IPage<House>}
+     */
+    IPage<House> listByCollection(UserEntity userEntity, Integer current, Integer size);
 
 }

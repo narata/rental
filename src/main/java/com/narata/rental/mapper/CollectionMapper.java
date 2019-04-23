@@ -1,8 +1,8 @@
 package com.narata.rental.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.narata.rental.entity.Collection;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.narata.rental.entity.Collection;
 
 /**
  * <p>

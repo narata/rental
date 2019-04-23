@@ -1,8 +1,10 @@
 package com.narata.rental.mapper;
 
-import com.narata.rental.entity.House;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.narata.rental.entity.House;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -12,6 +14,12 @@ import org.apache.ibatis.annotations.Mapper;
  * @author narata
  * @since 2019-04-16
  */
-@Mapper
 public interface HouseMapper extends BaseMapper<House> {
+    /**
+     * 获取被收藏的房源
+     * @param page page
+     * @param userId 用户id
+     * @return List
+     */
+    IPage<House> selectPageCollection(Page page, @Param("user_id") Long userId);
 }

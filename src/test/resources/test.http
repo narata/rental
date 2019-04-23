@@ -7,15 +7,65 @@ Content-Type: application/json
 }
 
 ###
-POST http://{{host}}/house/test
+POST http://{{host}}/house
 Content-Type: application/json
 Cookie: {{cookie}}
 
 {
-  "size": 123,
-  "location": "",
-  "rent": "",
-  "floor": ""
+  "rent": 10000
 }
+
+###
+DELETE http://{{host}}/house
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{cookie}}
+
+house_id=1
+
+###
+POST http://{{host}}/house/list?current=1&size=10&self=0
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "rent_house": 0
+}
+
+###
+POST http://{{host}}/collection
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{cookie}}
+
+house_id=1
+
+###
+DELETE http://{{host}}/collection
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{cookie}}
+
+collection_id=1
+
+###
+GET http://{{host}}/collection?current=1&size=10
+Cookie: {{cookie}}
+
+###
+POST http://{{host}}/comment
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{cookie}}
+
+house_id=2&comment=comment
+
+###
+DELETE http://{{host}}/comment
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{cookie}}
+
+comment_id=1
+
+###
+GET http://{{host}}/comment?current=1&size=10&house_id=2
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{cookie}}
 
 ###

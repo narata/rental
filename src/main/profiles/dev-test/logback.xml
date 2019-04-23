@@ -19,7 +19,7 @@
             <maxHistory>10</maxHistory>
         </rollingPolicy>
     </appender>
-    <logger name="com.narata.daily.config.ServiceLogAspect" level="DEBUG" additivity="false">
+    <logger name="com.narata.rental.aop.ServiceLogAspect" level="DEBUG" additivity="false">
         <appender-ref ref="service"/>
     </logger>
 
@@ -37,9 +37,28 @@
             <maxHistory>10</maxHistory>
         </rollingPolicy>
     </appender>
-    <logger name="com.narata.daily.config.HttpLogAspect" level="DEBUG" additivity="false">
+    <logger name="com.narata.rental.aop.HttpLogAspect" level="DEBUG" additivity="false">
         <appender-ref ref="http"/>
     </logger>
+
+    <appender name="root" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <encoder>
+            <pattern>${log-pattern}</pattern>
+            <charset>${encoding}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.dir}/root.%d{yy-MM-dd}.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="root"/>
+    </root>
+
 
 
 </configuration>

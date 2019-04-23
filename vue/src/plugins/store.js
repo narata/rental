@@ -5,16 +5,23 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-        daily: null
+        houseInfo: null,
+        houseEdit: null
     },
     mutations: {
-        setDaily (state, dailyInfo) {
-            state.daily = dailyInfo
-        }
+        setHouse (state, houseInfo) {
+            state.houseInfo = houseInfo
+        },
+        setEdit (state, houseEdit) {
+            state.houseEdit = houseEdit
+        },
     },
     getters: {
-        getDaily: state => {
-            return state.daily
+        getHouse: state => {
+            return state.houseInfo
+        },
+        getEdit: state => {
+            return state.houseEdit
         }
     }
 });

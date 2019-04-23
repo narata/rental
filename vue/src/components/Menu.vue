@@ -1,13 +1,17 @@
 <template>
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1" @click="main()">写日报</el-menu-item>
-        <el-menu-item index="2" @click="listSelf()">查看自己日报</el-menu-item>
-        <el-menu-item index="3" @click="listAll()">查看所有日报</el-menu-item>
-        <el-submenu index="4">
-            <template slot="title">{{ username }}</template>
-            <el-menu-item index="4-1">修改个人信息</el-menu-item>
-            <el-menu-item index="4-2">修改密码</el-menu-item>
-            <el-menu-item index="4-3" @click="logout()">退出</el-menu-item>
+        <el-menu-item index="1" @click="getHouse()">房源信息</el-menu-item>
+        <el-menu-item index="2" @click="rentHouse()">求租信息</el-menu-item>
+        <el-menu-item index="3" @click="release()">发布信息</el-menu-item>
+        <el-menu-item index="4" @click="myCollection()">我的收藏</el-menu-item>
+        <el-menu-item index="5" @click="detail()" v-if="this.$store.getters.getHouse != null">帖子详情</el-menu-item>
+        <el-menu-item index="7" @click="edit()" v-if="this.$store.getters.getEdit != null">编辑帖子</el-menu-item>
+        <el-submenu index="6">
+            <template slot="title">个人中心</template>
+            <el-menu-item index="6-1" @click="getAllSelf">查看帖子</el-menu-item>
+            <el-menu-item index="6-2" @click="editUserInfo">信息修改</el-menu-item>
+            <el-menu-item index="6-3" @click="manageUser" v-if="role === '1'">用户管理</el-menu-item>
+            <el-menu-item index="6-4" @click="logout()">退出</el-menu-item>
         </el-submenu>
     </el-menu>
 </template>
@@ -18,7 +22,8 @@
         data() {
             return {
                 // activeIndex: "1"
-                username: localStorage.getItem("username")
+                username: localStorage.getItem("username"),
+                role: localStorage.getItem("role")
             }
         },
         props: ['activeIndex'],
@@ -36,14 +41,32 @@
                     this.$message.error("退出登录失败")
                 });
             },
-            listSelf() {
-                this.$router.push({path: '/list/self'})
+            getHouse() {
+                this.$router.push({path: '/get_house'})
             },
-            listAll() {
-                this.$router.push({path: '/list/all'})
+            rentHouse() {
+                this.$router.push({path: '/rent_house'})
             },
-            main() {
-                this.$router.push({path: '/'})
+            release() {
+                this.$router.push({path: '/release'})
+            },
+            myCollection() {
+                this.$router.push({path: '/my_collection'})
+            },
+            detail() {
+                this.$router.push({path: '/detail'})
+            },
+            getAllSelf() {
+                this.$router.push({path: '/getAllSelf'})
+            },
+            edit() {
+                this.$router.push({path: '/edit'})
+            },
+            editUserInfo() {
+                this.$router.push({path: '/editUserInfo'})
+            },
+            manageUser() {
+                this.$router.push({path: '/manageUser'})
             }
         }
     }

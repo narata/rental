@@ -11,6 +11,8 @@ import com.narata.rental.mapper.CollectionMapper;
 import com.narata.rental.service.ICollectionService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -49,5 +51,21 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
         IPage<Collection> page = new Page<>(current, size);
         LambdaQueryWrapper<Collection> wrapper = new QueryWrapper<Collection>().lambda().eq(Collection::getUserId, userEntity.getId());
         return baseMapper.selectPage(page, wrapper);
+    }
+
+    @Override
+    public List<Long> listHouseIdByUser(UserEntity userEntity) {
+        List<Collection> collections = baseMapper.selectList(
+                new QueryWrapper<Collection>().lambda().eq(Collection::getUserId, userEntity.getId()));
+        List<Long> result = new ArrayList<>();
+        for (Collection collection: collections) {
+            result.add(collection.getHouseId());
+        }
+        return result;
+    }
+
+    @Override
+    public Collection selectByHouseAndUserId(Long houseId, Long userId) {
+        return baseMapper.selectByHouseAndUserId(houseId, userId);
     }
 }

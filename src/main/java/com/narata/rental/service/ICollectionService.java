@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.narata.rental.entity.Collection;
 import com.narata.rental.entity.UserEntity;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -38,4 +40,19 @@ public interface ICollectionService extends IService<Collection> {
      * @return {@link IPage<Collection>}
      */
     IPage<Collection> list(UserEntity userEntity, Integer current, Integer size);
+
+    /**
+     * 列出用户的所有收藏房间id
+     * @param userEntity 用户
+     * @return {@link List<Long>}
+     */
+    List<Long> listHouseIdByUser(UserEntity userEntity);
+
+    /**
+     * 通过房源id与用户id获得Collection
+     * @param houseId 房源id
+     * @param userId 用户id
+     * @return {@link Collection}
+     */
+    Collection selectByHouseAndUserId(Long houseId, Long userId);
 }

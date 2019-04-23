@@ -22,6 +22,7 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
+  mapper-locations: classpath*:mybatis/*.xml
 
 
 upload:

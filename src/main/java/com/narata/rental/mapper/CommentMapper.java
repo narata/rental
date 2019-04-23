@@ -1,7 +1,7 @@
 package com.narata.rental.mapper;
 
-import com.narata.rental.entity.Comment;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.narata.rental.entity.Comment;
 
 /**
  * <p>

@@ -2,6 +2,9 @@ package com.narata.rental.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -15,6 +18,8 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class House {
 
     /**
@@ -62,6 +67,11 @@ public class House {
      * 图片位置
      */
     private String image;
+
+    /**
+     * 详细描述
+     */
+    private String description;
 
     /**
      * 用户id

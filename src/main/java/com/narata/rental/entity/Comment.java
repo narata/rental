@@ -1,5 +1,6 @@
 package com.narata.rental.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
@@ -26,12 +27,15 @@ public class Comment{
 
     private Long userId;
 
+    @TableField(exist = false)
+    private String username;
+
     private String comment;
 
     private LocalDateTime time;
 
     @TableLogic
-    private Integer idDeleted;
+    private Integer isDeleted;
 
 
 }

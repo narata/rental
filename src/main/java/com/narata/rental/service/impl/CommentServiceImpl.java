@@ -9,6 +9,7 @@ import com.narata.rental.entity.Comment;
 import com.narata.rental.entity.UserEntity;
 import com.narata.rental.mapper.CommentMapper;
 import com.narata.rental.service.ICommentService;
+import com.narata.rental.service.IUserService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,6 +25,11 @@ import java.util.Objects;
  */
 @Service
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> implements ICommentService {
+    private final IUserService userService;
+
+    public CommentServiceImpl(IUserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public boolean add(String comment, Long houseId, Long userId) {
@@ -49,7 +55,14 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Override
     public IPage<Comment> list(Long houseId, Integer current, Integer size) {
         IPage<Comment> page = new Page<>(current, size);
-        LambdaQueryWrapper<Comment> wrapper = new QueryWrapper<Comment>().lambda().eq(Comment::getHouseId, houseId);
-        return baseMapper.selectPage(page, wrapper);
+        LambdaQueryWrapper<Comment> wrapper = new QueryWrapper<Comment>().lambda()
+                .eq(Comment::getHouseId, houseId)
+                .orderByDesc(Comment::getId);
+        IPage<Comment> result = baseMapper.selectPage(page, wrapper);
+        for (int i = 0; i < result.getRecords().size(); i++) {
+            UserEntity user = userService.getById(result.getRecords().get(i).getUserId());
+            result.getRecords().get(i).setUsername(user.getUsername());
+        }
+        return result;
     }
 }

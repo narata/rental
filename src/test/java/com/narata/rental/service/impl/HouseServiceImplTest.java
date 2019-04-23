@@ -1,19 +1,18 @@
 package com.narata.rental.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.narata.rental.entity.House;
 import com.narata.rental.entity.UserEntity;
 import com.narata.rental.service.IHouseService;
 import com.narata.rental.service.IUserService;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author narata
@@ -53,6 +52,13 @@ public class HouseServiceImplTest {
     public void list() throws JsonProcessingException {
         UserEntity userEntity = userService.getById(1);
         House house = new House();
-        System.out.println(new ObjectMapper().writeValueAsString(houseService.list(userEntity, 1, 2, house)));
+//        System.out.println(new ObjectMapper().writeValueAsString(houseService.list(userEntity, 1, 2, house)));
+    }
+
+    @Test
+    public void listByCollection() {
+        UserEntity userEntity = userService.getById(1);
+        IPage<House> result = houseService.listByCollection(userEntity, 1, 10);
+        System.out.println(result);
     }
 }
