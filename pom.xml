@@ -72,7 +72,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.4</version>
+            <version>1.2.54</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -136,7 +136,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.narata.daily.DailyApplication</mainClass>
+                    <mainClass>com.narata.rental.RentalApplication</mainClass>
                     <fork>true</fork>
                 </configuration>
             </plugin>
